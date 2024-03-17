@@ -1,0 +1,117 @@
+#add:packagename
+#del:packagename
+
+
+# GNOME Apps
+add:dconf-cli
+add:dconf-editor
+add:gnome-software-plugin-flatpak
+add:gnome-tweaks
+
+
+# CLI : Materiel
+add:vulkan-tools
+add:vulkan-validationlayers
+
+
+# CLI : Scripting
+add:python3-distutils-extra
+add:python3-pip
+add:shellcheck
+
+
+# CLI : Système
+add:at
+add:autoconf
+add:autofs
+add:bash-completion
+add:bat
+add:dislocker
+add:exfat-fuse
+add:exa
+add:firmware-linux
+add:firmware-linux-nonfree
+add:flatpak
+add:git
+add:glances
+add:grub-customizer
+add:htop
+add:inxi
+add:lbzip2
+add:lshw
+add:lsscsi
+add:mailutils
+add:neofetch
+add:nmon
+add:ncdu
+add:numlockx
+add:pdftk
+add:pigz
+add:qrencode
+add:ranger
+add:ripgrep
+add:s-tui
+add:tmux
+add:vim-nox
+add:xfsprogs
+
+
+# CLI : Disques
+add:gdisk
+add:smartmontools
+
+
+# CLI : Réseau
+add:cifs-utils
+add:nfs-common
+add:nmap
+add:samba-common-bin
+add:traceroute
+add:whois
+add:wireguard
+
+
+# CLI : Multimedia
+add:ffmpeg
+add:gphoto2
+add:gstreamer1.0-vaapi
+add:imagemagick
+add:mediainfo
+add:libimage-exiftool-perl
+add:libheif-examples
+add:yt-dlp
+
+
+# CLI : Divers
+add:git
+
+
+# GUI : backup
+add:timeshift
+
+
+# GUI : Hardware
+add:cpu-x
+
+# GUI : Multimedia
+add:audacity
+add:kdenlive
+add:mediainfo-gui
+add:obs-studio
+add:smplayer
+add:soundconverter
+add:strawberry
+add:vlc
+
+
+# GUI : Graphisme
+add:ksnip
+
+
+# GUI : Internet
+add:filezilla
+add:vivaldi-stable
+
+
+# GUI : Utilitaires
+add:nextcloud-desktop
