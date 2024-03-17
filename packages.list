@@ -41,7 +41,6 @@ add:lbzip2
 add:lshw
 add:lsscsi
 add:mailutils
-add:neofetch
 add:nmon
 add:ncdu
 add:numlockx
@@ -63,10 +62,12 @@ add:smartmontools
 
 # CLI : Réseau
 add:cifs-utils
+add:curl
 add:nfs-common
 add:nmap
 add:samba-common-bin
 add:traceroute
+add:wget
 add:whois
 add:wireguard
 
@@ -93,6 +94,7 @@ add:timeshift
 # GUI : Hardware
 add:cpu-x
 
+
 # GUI : Multimedia
 add:audacity
 add:kdenlive
@@ -111,6 +113,18 @@ add:ksnip
 # GUI : Internet
 add:filezilla
 add:vivaldi-stable
+del:firefox-esr
+
+
+# GUI : Office
+del:libreoffice-common
+del:libreoffice-core
+del:libreoffice-gnome
+del:libreoffice-gtk3
+del:libreoffice-help-common
+del:libreoffice-help-en-us
+del:libreoffice-style-colibre
+del:libreoffice-style-elementary 
 
 
 # GUI : Utilitaires

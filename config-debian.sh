@@ -22,6 +22,7 @@ else
 fi
 }
 
+// Check if a package is installed by querying dpkg status.
 check_pkg()
 {
 	dpkg -s "$1" &> /dev/null
@@ -76,7 +77,6 @@ del_gnome_pkg()
 	done
 }
 
-
 check_flatpak()
 {
 	flatpak info "$1"
@@ -121,15 +121,15 @@ fi
 # Cas CHECK-UPDATES
 if [[ "$1" = "check" ]]
 then
-	echo -n "01- - Refresh du cache : "
+	echo -e "01- - Refresh du cache : "
 	refresh_cache
 	check_cmd
 
-	echo "02- - Mises à jour APT : "
+	echo -e "02- - Mises à jour APT : "
 	update_apt
 	check_cmd
 
-	echo "03- - Mises à jour FLATPAK : "
+	echo -e "03- - Mises à jour FLATPAK : "
 	update_flatpak
 	check_cmd
 
@@ -138,30 +138,30 @@ fi
 
 # Autres cas
 ## MAJ APT
-echo -n "01- - Refresh du cache : "
+echo -e "\033[1;34m01- - Refresh du cache : \033[0m"
 refresh_cache
 check_cmd
-echo -n "02- - Mises à jour APT : "
+echo -e "\033[1;34m02- - Mises à jour APT : \033[0m"
 update_apt
 check_cmd
 
 ## MAJ FLATPACK
-echo -n "03- - Mises à jour FLATPAK : "
+echo -e "\033[1;34m03- - Mises à jour FLATPAK : \033[0m"
 update_flatpak
 check_cmd
 
 ## Installation codec
-echo -n "04- Vérification Codec"
+echo -e "\033[1;34m04- Vérification Codec\033[0m"
 add_codec
 
 ## Personnalisation GNOME
-echo -n "05- Personnalisation composants GNOME"
+echo -e "\033[1;34m05- Personnalisation composants GNOME\033[0m"
 gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
 del_gnome_pkg
 add_gnome_pkg 
 
 ## Install/Suppr APT selon liste
-echo "06- Gestion des paquets"
+echo -e "\033[1;34m06- Gestion des paquets via APT\033[0m"
 while read -r line
 do
 	if [[ "$line" == add:* ]]
@@ -187,11 +187,42 @@ do
 	fi
 done < "$ICI/packages.list"
 
+
 ## Ajout discord
-echo "07- Installation de Discord"
+echo -e "\033[1;34m07- Installation de Discord\033[0m"
 if ! check_pkg discord
 then
     wget -O- "https://discord.com/api/download?platform=linux&format=deb" > /tmp/discord.deb
-	sudo dpkg -i /tmp/discord.deb
+	dpkg -i /tmp/discord.deb
     apt-get install -f -y
+fi
+
+## Ajout Vivaldi Browser
+echo -e "\033[1;34m08- Installation de Vivaldi\033[0m"
+if ! check_pkg vivaldi-stable
+then
+	wget -O- "https://repo.vivaldi.com/stable/linux_signing_key.pub" > /tmp/vivaldi_linux_signing_key.pub
+	gpg --import /tmp/vivaldi_linux_signing_key.pub
+	echo "deb [arch=amd64] https://repo.vivaldi.com/stable/deb/ stable main" | tee /etc/apt/sources.list.d/vivaldi.list
+	apt update
+	apt install -y vivaldi-stable
+fi
+
+## Ajout Tailscale
+echo -e "\033[1;34m09- Installation de Tailscale\033[0m"
+if ! check_pkg tailscale
+then
+	curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+	curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
+	apt update
+	apt install -y tailscale
+fi
+
+## Ajout FastFetch
+echo -e "\033[1;34m10- Installation de FastFetch\033[0m"
+if ! check_pkg fastfetch
+then
+	curl -L https://github.com/fastfetch-cli/fastfetch/releases/download/2.8.9/fastfetch-linux-amd64.deb -o /tmp/fastfetch-linux-amd64.deb
+	dpkg -i /tmp/fastfetch-linux-amd64.deb
+	apt-get install -f -y
 fi
