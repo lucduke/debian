@@ -156,9 +156,38 @@ add_codec
 
 ## Personnalisation GNOME
 echo -e "\033[1;34m05- Personnalisation composants GNOME\033[0m"
+echo -e " - Personalisation Nautilus"
+gsettings set org.gnome.nautilus.list-view default-visible-columns "['name', 'size', 'detailed_type', 'permissions', 'owner', 'group', 'date_modified_with_time']"
+gsettings set org.gnome.nautilus.list-view default-column-order "['name', 'size', 'detailed_type', 'permissions', 'owner', 'group', 'date_modified_with_time', 'starred']"
+gsettings set org.gnome.nautilus.preferences click-policy 'double'
+gsettings set org.gtk.Settings.FileChooser sort-directories-first true
+gsettings set org.gtk.gtk4.Settings.FileChooser sort-directories-first true
+echo -e " - Boutons de fenêtre"
 gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
+echo -e " - Suramplification"
+gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
+echo -e " - Détacher les popups des fenêtres"
+gsettings set org.gnome.mutter attach-modal-dialogs false
+echo -e " - Affichage du calendrier dans le panneau supérieur"
+gsettings set org.gnome.desktop.calendar show-weekdate true
+echo -e " - Modification du format de la date et heure"
+gsettings set org.gnome.desktop.interface clock-show-date true
+gsettings set org.gnome.desktop.interface clock-show-weekday true
+gsettings set org.gnome.desktop.interface clock-format 24h
+echo -e " - Activation du mode nuit"
+gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
+echo -e " - Epuration des fichiers temporaires et de la corbeille de plus de 30 jours"
+gsettings set org.gnome.desktop.privacy remove-old-temp-files true
+gsettings set org.gnome.desktop.privacy remove-old-trash-files true
+gsettings set org.gnome.desktop.privacy old-files-age "30"
+echo -e "- Configuration de GNOME Logiciels"
+gsettings set org.gnome.software show-ratings true
 del_gnome_pkg
 add_gnome_pkg 
+echo -e "- Personalisation DashToDock"
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "BOTTOM"
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
+gsettings set org.gnome.shell.extensions.dash-to-dock autohide-in-fullscreen true
 
 ## Install/Suppr APT selon liste
 echo -e "\033[1;34m06- Gestion des paquets via APT\033[0m"
