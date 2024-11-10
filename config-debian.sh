@@ -255,3 +255,10 @@ then
 	dpkg -i /tmp/fastfetch-linux-amd64.deb
 	apt-get install -f -y
 fi
+
+# Ajout gThumb
+echo -e "\033[1;34m10- Installation de gThumb\033[0m"
+if ! check_pkg gThumb
+then
+	flatpak install flathub org.gnome.gThumb
+fi
