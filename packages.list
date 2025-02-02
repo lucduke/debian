@@ -52,6 +52,7 @@ add:ranger
 add:ripgrep
 add:s-tui
 add:tmux
+add:tuned
 add:vim-nox
 add:xfsprogs
 
