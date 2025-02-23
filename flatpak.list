@@ -1,0 +1,6 @@
+#add:packagename
+#del:packagename
+
+# Flatsweep
+add:io.github.giantpinkrobots.flatsweep
+

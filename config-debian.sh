@@ -216,6 +216,33 @@ do
 	fi
 done < "$ICI/packages.list"
 
+## Install/Suppr FLATPAK selon liste
+echo -e "\033[1;34m07- Gestion des paquets via FLATPAK\033[0m"
+while read -r line
+do
+	if [[ "$line" == add:* ]]
+	then
+		p=${line#add:}
+		if ! check_flatpak "$p"
+		then
+			echo -n "- - - Installation paquet $p : "
+			add_flatpak "$p"
+			check_cmd
+		fi
+	fi
+	
+	if [[ "$line" == del:* ]]
+	then
+		p=${line#del:}
+		if check_flatpak "$p"
+		then
+			echo -n "- - - Suppression paquet $p : "
+			del_flatpak "$p"
+			check_cmd
+		fi
+	fi
+done < "$ICI/flatpak.list"
+
 
 ## Ajout discord
 echo -e "\033[1;34m07- Installation de Discord\033[0m"

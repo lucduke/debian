@@ -118,7 +118,6 @@ add:ksnip
 # GUI : Internet
 add:filezilla
 add:vivaldi-stable
-del:firefox-esr
 
 
 # GUI : Office
