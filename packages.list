@@ -51,6 +51,7 @@ add:qrencode
 add:ranger
 add:ripgrep
 add:s-tui
+add:sqlitebrowser
 add:tmux
 add:tuned
 add:vim-nox
