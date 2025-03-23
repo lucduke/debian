@@ -23,9 +23,9 @@ fi
 }
 
 // Check if a package is installed by querying dpkg status.
-check_pkg()
-{
-	dpkg -s "$1" &> /dev/null
+# Vérifie si un paquet Debian est installé
+check_pkg() {
+    dpkg -s "$1" &> /dev/null
 }
 
 add_pkg()
@@ -107,6 +107,12 @@ update_flatpak()
 	flatpak update --noninteractive
 }
 
+# Télécharge le paquet .deb depuis une URL et l'installe
+add_deb_pkg() {
+    wget -O /tmp/tmp.deb "$1"
+    dpkg -i /tmp/tmp.deb
+    apt install -f -y
+}
 
 ####################
 ### DEBUT SCRIPT ###
@@ -243,15 +249,38 @@ do
 	fi
 done < "$ICI/flatpak.list"
 
+## Install/Suppr paquets DEB selon liste
+### Parcours du fichier de liste deb.list
+echo -e "\033[1;34m07- Gestion des paquets DEB en téléchargement\033[0m"
+while IFS= read -r line; do
+    # Ignorer les lignes vides et les commentaires
+    [[ -z "$line" || "$line" =~ ^# ]] && continue
 
-## Ajout discord
-echo -e "\033[1;34m07- Installation de Discord\033[0m"
-if ! check_pkg discord
-then
-    wget -O- "https://discord.com/api/download?platform=linux&format=deb" > /tmp/discord.deb
-	dpkg -i /tmp/discord.deb
-    apt-get install -f -y
-fi
+    # Séparer la ligne par le caractère ";"
+    IFS=';' read -ra parts <<< "$line"
+    pkg=""
+    url=""
+    for part in "${parts[@]}"; do
+        if [[ $part == pkg:* ]]; then
+            pkg=${part#pkg:}
+        elif [[ $part == add:* ]]; then
+            url=${part#add:}
+        fi
+    done
+
+    # Affichage pour vérification
+    echo "Paquet : $pkg"
+    echo "URL   : $url"
+
+	# Vérifier si le paquet est déjà installé
+	if ! check_pkg "$pkg"; then
+		echo -n "- - - Téléchargement/Installation paquet $pkg : "
+		add_deb_pkg "$url"
+		check_cmd
+	fi
+
+done < "$ICI/deb.list"
+
 
 ## Ajout Vivaldi Browser
 echo -e "\033[1;34m08- Installation de Vivaldi\033[0m"
@@ -272,20 +301,4 @@ then
 	curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
 	apt update
 	apt install -y tailscale
-fi
-
-## Ajout FastFetch
-echo -e "\033[1;34m10- Installation de FastFetch\033[0m"
-if ! check_pkg fastfetch
-then
-	curl -L https://github.com/fastfetch-cli/fastfetch/releases/download/2.8.9/fastfetch-linux-amd64.deb -o /tmp/fastfetch-linux-amd64.deb
-	dpkg -i /tmp/fastfetch-linux-amd64.deb
-	apt-get install -f -y
-fi
-
-# Ajout gThumb
-echo -e "\033[1;34m10- Installation de gThumb\033[0m"
-if ! check_pkg gThumb
-then
-	flatpak install flathub org.gnome.gThumb
 fi
