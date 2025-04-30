@@ -1,6 +1,9 @@
 #add:packagename
 #del:packagename
 
+# Gnome extensions
+add:flathub com.mattjakeman.ExtensionManager
+
 # Flatsweep
 add:io.github.giantpinkrobots.flatsweep
 

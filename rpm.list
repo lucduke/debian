@@ -1,0 +1,8 @@
+#add:packagename
+#del:packagename
+
+# Multimedia
+add:libavcodec-freeworld
+
+# Système
+add:gnome-tweaks

@@ -302,3 +302,13 @@ then
 	apt update
 	apt install -y tailscale
 fi
+
+## Ajout Twingate
+echo -e "\033[1;34m10- Installation de Twingate\033[0m"
+if ! check_pkg twingate
+then
+	echo "deb [trusted=yes] https://packages.twingate.com/apt/ /" | tee /etc/apt/sources.list.d/twingate.list
+	apt update -yq
+	apt install -y twingate
+	# After installation, configure the client by running: sudo twingate setup
+fi
