@@ -2,10 +2,10 @@
 #del:packagename
 
 # Gnome extensions
-add:flathub com.mattjakeman.ExtensionManager
+add:com.mattjakeman.ExtensionManager
 
 # Flatsweep
 add:io.github.giantpinkrobots.flatsweep
 
 # gThumb
-add:flathub org.gnome.gThumb
+add:org.gnome.gThumb

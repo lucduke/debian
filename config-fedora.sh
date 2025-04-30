@@ -3,7 +3,7 @@
 #################
 ### VARIABLES ###
 #################
-GNOMECOMPADD="gnome-extensions-app gnome-shell-extension-dashtodock gnome-shell-extension-appindicator gnome-shell-extension-arc-menu adwaita-qt6 qgnomeplatform-qt5"
+GNOMECOMPADD="gnome-extensions-app gnome-shell-extension-appindicator qgnomeplatform-qt5"
 GNOMECOMPDEL="gnome-2048 gnome-klotski gnome-mahjongg gnome-mines gnome-nibbles gnome-robots gnome-sudoku gnome-taquin gnome-games gnome-music totem five-or-more hitori iagno four-in-a-row quadrapassel lightsoff tali gnome-tetravex swell-foop rhythmbox"
 ICI=$(dirname "$0")
 
@@ -225,10 +225,8 @@ echo -e "- Configuration de GNOME Logiciels"
 gsettings set org.gnome.software show-ratings true
 del_gnome_pkg
 add_gnome_pkg 
-echo -e "- Personalisation DashToDock"
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "BOTTOM"
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
-gsettings set org.gnome.shell.extensions.dash-to-dock autohide-in-fullscreen true
+
+echo -e "Insaller manuellement l'extension Dash2Doc, ArcMenu et Blurmyshell"
 
 
 ## Ajout Twingate
@@ -236,8 +234,8 @@ echo -e "\033[1;34m10- Installation de Twingate\033[0m"
 if ! check_pkg twingate
 then
 	dnf install -y 'dnf-command(config-manager)'
-    dnf config-manager --add-repo https://packages.twingate.com/rpm/
-    dnf config-manager --save --setopt=packages.twingate.com_rpm_.gpgcheck=0
+    dnf config-manager addrepo --set=baseurl="https://packages.twingate.com/rpm/"
+    dnf config-manager setopt "packages.twingate.com_rpm_.gpgcheck=0"
     dnf install -y twingate  # or twingate-latest
     # After installation, configure the client by running: sudo twingate setup
 fi
