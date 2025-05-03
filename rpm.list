@@ -4,5 +4,8 @@
 # Multimedia
 add:libavcodec-freeworld
 
-# Système
+# GNOME Apps
 add:gnome-tweaks
+
+# Système
+add:htop
